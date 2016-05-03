@@ -17,6 +17,7 @@ boardState :: Board -> State
 boardState board
   | winner board                        = Winner
   | winner (Game.Board.transpose board) = Winner
+  | tie board                           = Tie
   | otherwise                           = Undecided
 
 winner :: Board -> Bool
@@ -25,6 +26,10 @@ winner board
   | rowWinner board 1 (maxCols board) = True
   | diagWinner board                  = True
   | otherwise                         = False
+
+tie :: Board -> Bool
+tie (Board matrix) =
+  not $ sentinel `Data.List.elem` (Data.Matrix.toList matrix)
 
 rowWinner :: Board -> Int -> Int -> Bool
 rowWinner board colNum maxColNum =

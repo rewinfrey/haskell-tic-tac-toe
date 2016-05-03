@@ -18,7 +18,3 @@ spec = do
     it "is idempotent" $ property $
       \str -> strip str == strip (strip str)
 
-    it "is falsey" $ do
-      True `shouldBe` False
-
-
