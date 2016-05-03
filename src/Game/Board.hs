@@ -15,10 +15,9 @@ newBoard i j = Board (matrix i j $ \(i,j) -> sentinel)
 
 boardState :: Board -> State
 boardState board
-  | winner board                        = Winner
-  | winner (Game.Board.transpose board) = Winner
-  | tie board                           = Tie
-  | otherwise                           = Undecided
+  | winner board = Winner
+  | tie board    = Tie
+  | otherwise    = Undecided
 
 winner :: Board -> Bool
 winner board
