@@ -10,8 +10,8 @@ data State = Winner | Tie | Undecided deriving (Show, Eq)
 
 sentinel = ' '
 
-newBoard :: Int -> Int -> Board
-newBoard i j = Board (matrix i j $ \(i,j) -> sentinel)
+newBoard :: Int -> Board
+newBoard i = Board (matrix i i $ \(i,j) -> sentinel)
 
 boardState :: Board -> State
 boardState board

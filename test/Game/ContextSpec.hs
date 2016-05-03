@@ -18,5 +18,5 @@ spec = do
       let gameContext = newGameContext newPlayer1 newPlayer2
       player1 gameContext `shouldBe` newPlayer1
       player2 gameContext `shouldBe` newPlayer2
-      board gameContext `shouldBe` newBoard 3 3
+      board gameContext `shouldBe` newBoard 3
 

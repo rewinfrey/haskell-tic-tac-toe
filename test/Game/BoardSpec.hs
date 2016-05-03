@@ -18,7 +18,7 @@ spec :: Spec
 spec = do
   describe "newBoard" $ do
     it "returns a new Board" $ do
-      newBoard 3 3 `shouldBe` (Board $ matrix 3 3 $ \(i,j) -> ' ')
+      newBoard 3 `shouldBe` (Board $ matrix 3 3 $ \(i,j) -> ' ')
 
   describe "winner" $ do
     it "returns true if the given board contains a column win" $ do
@@ -50,4 +50,4 @@ spec = do
       boardState tieBoard `shouldBe` Tie
 
     it "returns Undecided when game is ongoing" $ do
-      boardState (newBoard 3 3) `shouldBe` Undecided
+      boardState (newBoard 3) `shouldBe` Undecided

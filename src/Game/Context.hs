@@ -9,5 +9,5 @@ newGameContext :: Player -> Player -> GameContext
 newGameContext player1 player2 = GameContext
   { player1 = player1
   , player2 = player2
-  , board = newBoard 3 3
+  , board = newBoard 3
   }
