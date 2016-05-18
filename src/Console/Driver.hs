@@ -1,6 +1,7 @@
 module Console.Driver where
 
 import System.Process
+import Game.Player
 
 x = "X"
 o = "O"
@@ -11,17 +12,33 @@ computer = "Computer"
 start :: IO ()
 start = do
   greeting
-  token <- getToken
-  playerType1 <- getPlayer "1"
-  playerType2 <- getPlayer "2"
-  putStrLn $ "\nPlayer 1's token is: " ++ token
-  putStrLn $ "\nPlayer 1 is: " ++ playerType1
-  putStrLn $ "\nPlayer 2 is: " ++ playerType2
+  player1TokenSelection <- getToken
+  player1TypeSelection  <- getPlayer "1"
+  player2TypeSelection  <- getPlayer "2"
+
+  let player1Token = inputFromChoice player1TokenSelection x o
+  let player1Type  = inputFromChoice player1TypeSelection human computer
+  let player2Type  = inputFromChoice player2TypeSelection human computer
+
+  putStrLn $ "\nPlayer 1's token is: " ++ player1Token
+  putStrLn $ "\nPlayer 1 is: " ++ player1Type
+  putStrLn $ "\nPlayer 2 is: " ++ player2Type
+
+  let player1 = newPlayer player1Token player1Type
+  let player2 = newPlayer (opposite player1Token) player2Type
+
+  putStrLn $ "\nPlayer 1 real token is: " ++ token player1
+  putStrLn $ "\nPlayer 2 real token is: " ++ token player2
+  putStrLn "\nFinished!"
+
+opposite :: String -> String
+opposite token =
+  case token of
+    x -> o
+    o -> x
 
 greeting :: IO ()
-greeting = do
-  -- createProcess (proc "clear" [])
-  putStrLn "\nWelcome to Haskell Tic-Tac-Toe!\n"
+greeting = putStrLn "\nWelcome to Haskell Tic-Tac-Toe!\n"
 
 tokenPrompt :: IO ()
 tokenPrompt = do
@@ -36,37 +53,28 @@ playerPrompt playerNumber = do
   putStrLn $ "2. " ++ computer
 
 invalidInputPrompt :: IO ()
-invalidInputPrompt = do
-  putStrLn "\nSorry, I dunno that!"
+invalidInputPrompt = putStrLn "\nSorry, I dunno that!"
 
-getToken :: IO [Char]
+getToken :: IO String
 getToken = do
   tokenPrompt
   choice <- getLine
-  if (inputValid choice)
-     then return $ inputFromChoice choice x o
-     else do
-       invalidInputPrompt
-       getToken
+  if inputValid choice then return choice else getToken
 
-getPlayer :: String -> IO [Char]
+getPlayer :: String -> IO String
 getPlayer playerNumber = do
   playerPrompt playerNumber
   choice <- getLine
-  if (inputValid choice)
-     then return $ inputFromChoice choice human computer
-     else do
-       invalidInputPrompt
-       getPlayer playerNumber
+  if inputValid choice then return choice else getPlayer playerNumber
 
-inputValid :: [Char] -> Bool
+inputValid :: String -> Bool
 inputValid choice =
   case choice of
     "1" -> True
     "2" -> True
-    otherwise -> False
+    _   -> False
 
-inputFromChoice :: [Char] -> String -> String -> String
+inputFromChoice :: String -> String -> String -> String
 inputFromChoice choice opt1 opt2 =
   case choice of
     "1" -> opt1
