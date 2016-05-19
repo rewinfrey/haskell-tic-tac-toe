@@ -5,9 +5,9 @@ import Game.Board
 
 data GameContext = GameContext { board :: Board, player1 :: Player, player2 :: Player } deriving (Show)
 
-newGameContext :: Player -> Player -> GameContext
-newGameContext player1 player2 = GameContext
+newGameContext :: Player -> Player -> Int -> GameContext
+newGameContext player1 player2 boardSize = GameContext
   { player1 = player1
   , player2 = player2
-  , board = newBoard 3
+  , board = newBoard boardSize
   }
