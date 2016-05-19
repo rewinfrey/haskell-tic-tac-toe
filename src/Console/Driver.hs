@@ -1,10 +1,13 @@
 module Console.Driver where
 
 import System.Process
+import Game.Context
 import Game.Player
 
 x = "X"
 o = "O"
+
+defaultBoardSize = 3
 
 human = "Human"
 computer = "Computer"
@@ -26,6 +29,10 @@ start = do
 
   let player1 = newPlayer player1Token player1Type
   let player2 = newPlayer (opposite player1Token) player2Type
+
+  let gameContext = newGameContext player1 player2 defaultBoardSize
+
+  putStrLn $ "\nGameContext: " ++ show gameContext
 
   putStrLn $ "\nPlayer 1 real token is: " ++ token player1
   putStrLn $ "\nPlayer 2 real token is: " ++ token player2
