@@ -61,7 +61,7 @@ transpose = Data.Matrix.transpose
 maxCols :: Board -> Int
 maxCols board = Data.Vector.length $ getRow 1 board
 
-getOppositeDiag :: Board -> Data.Vector.Vector Char
-getOppositeDiag (Board matrix) =
-  Data.Vector.fromList $ Data.List.map (\(i, j) -> getElem i j matrix) (Data.List.zip [1..maxColNum] $ Data.List.reverse [1..maxColNum])
-  where maxColNum = maxCols $ Board matrix
+getOppositeDiag :: Board -> Data.Vector.Vector Space
+getOppositeDiag board =
+  Data.Vector.fromList $ Data.List.map (\(i, j) -> getElem i j board) (Data.List.zip [1..maxColNum] $ Data.List.reverse [1..maxColNum])
+  where maxColNum = maxCols board
