@@ -29,8 +29,8 @@ winner board
   | otherwise                         = False
 
 tie :: Board -> Bool
-tie (Board matrix) =
-  not $ sentinel `Data.List.elem` (Data.Matrix.toList matrix)
+tie board =
+  not . any (\space -> move space == Blank) $ Data.Matrix.toList board
 
 rowWinner :: Board -> Int -> Int -> Bool
 rowWinner board colNum maxColNum =
