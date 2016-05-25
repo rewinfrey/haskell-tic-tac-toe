@@ -33,6 +33,7 @@ tie (Board matrix) =
 rowWinner :: Board -> Int -> Int -> Bool
 rowWinner board colNum maxColNum =
   colWinner (Game.Board.transpose board) colNum maxColNum
+data Space = Space { location :: (Int, Int), move :: Move } deriving (Show, Eq)
 
 colWinner :: Board -> Int -> Int -> Bool
 colWinner (Board matrix) colNum maxColNum
