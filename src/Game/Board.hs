@@ -13,7 +13,7 @@ data Move = X | O | Blank deriving (Show, Eq)
 data Space = Space { location :: (Int, Int), move :: Move } deriving (Show, Eq)
 
 newBoard :: Int -> Board
-newBoard i = Board (matrix i i $ \(i,j) -> sentinel)
+newBoard i = matrix i i $ \(i,j) -> Space { location = (i, j), move = Blank }
 
 boardState :: Board -> State
 boardState board
