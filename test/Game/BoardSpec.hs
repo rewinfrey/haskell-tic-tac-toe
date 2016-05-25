@@ -24,6 +24,14 @@ columnWin =
                           (1,1) -> newSpace (1,1) X; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) X; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
+
+rowWin :: Board
+rowWin =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) X;     (1,2) -> newSpace (1,2) X;     (1,3) -> newSpace (1,3) X
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
+
 spec :: Spec
 spec = do
   describe "newBoard" $ do
