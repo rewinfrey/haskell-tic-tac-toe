@@ -8,6 +8,9 @@ import Game.Board
 main :: IO ()
 main = hspec spec
 
+newSpace :: (Int, Int) -> Move -> Space
+newSpace location move = Space { location = location, move = move }
+
 tieBoard :: Board
 tieBoard =
   Board $ matrix 3 3 $ \(i,j) -> case (i,j) of
