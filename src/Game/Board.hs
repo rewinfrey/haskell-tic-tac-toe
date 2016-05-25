@@ -10,6 +10,8 @@ data State = Winner | Tie | Undecided deriving (Show, Eq)
 
 data Move = X | O | Blank deriving (Show, Eq)
 
+data Space = Space { location :: (Int, Int), move :: Move } deriving (Show, Eq)
+
 newBoard :: Int -> Board
 newBoard i = Board (matrix i i $ \(i,j) -> sentinel)
 
