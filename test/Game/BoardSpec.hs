@@ -56,7 +56,7 @@ spec = do
     it "returns Board with all possible locations represented" $
       location <$> toList (newBoard 3) `shouldBe` [ (1,1), (1,2), (1,3)
                                                   , (2,1), (2,2), (2,3)
-                                                  , (3,1), (3,2), (3,3)]
+                                                  , (3,1), (3,2), (3,3) ]
 
   describe "winner" $ do
     it "returns true if the given board contains a column win" $
