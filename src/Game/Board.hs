@@ -49,12 +49,11 @@ diagWinner board
 
 vectorWinner :: Vector Space -> Bool
 vectorWinner v =
-  let col = Data.Vector.toList v
-      result = Data.List.nub $ Data.List.map (\boardSquare -> (boardSquare /= sentinel) && (boardSquare == (Data.List.head col))) col
-  in
-    case result of
-      [True] -> True
-      _ -> False
+  Data.List.all match column
+  where
+    match space = move space /= Blank && move space == move firstSpace
+    column = Data.Vector.toList v
+    firstSpace = Data.List.head column
 
 transpose :: Board -> Board
 transpose (Board matrix) = Board $ Data.Matrix.transpose matrix
