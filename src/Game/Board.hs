@@ -56,9 +56,7 @@ vectorWinner v =
     firstSpace = Data.List.head column
 
 transpose :: Board -> Board
-transpose (Board matrix) = Board $ Data.Matrix.transpose matrix
-newBoard :: Int -> Board
-newBoard i = matrix i i $ \(i,j) -> Space { location = (i, j), move = Blank }
+transpose = Data.Matrix.transpose
 
 maxCols :: Board -> Int
 maxCols (Board matrix) = Data.Vector.length $ getRow 1 matrix
