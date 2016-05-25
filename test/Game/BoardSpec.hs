@@ -73,6 +73,10 @@ spec = do
     it "returns false if the given board does not contain a win" $
       winner tieBoard `shouldBe` False
 
+  describe "tie" $
+    it "returns true if the given board is a tie" $
+      tie tieBoard `shouldBe` True
+
   describe "boardState" $ do
     it "returns Winner when winner is present" $
       boardState columnWin `shouldBe` Winner
