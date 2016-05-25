@@ -8,7 +8,7 @@ type Board = Matrix Space
 
 data State = Winner | Tie | Undecided deriving (Show, Eq)
 
-sentinel = ' '
+data Move = X | O | Blank deriving (Show, Eq)
 
 newBoard :: Int -> Board
 newBoard i = Board (matrix i i $ \(i,j) -> sentinel)
