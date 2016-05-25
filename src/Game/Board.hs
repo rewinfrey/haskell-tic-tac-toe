@@ -4,7 +4,7 @@ import Data.Matrix
 import Data.Vector
 import Data.List
 
-newtype Board = Board (Matrix Char) deriving (Show, Eq)
+type Board = Matrix Space
 
 data State = Winner | Tie | Undecided deriving (Show, Eq)
 
