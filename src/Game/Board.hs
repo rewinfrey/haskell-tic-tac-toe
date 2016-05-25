@@ -6,11 +6,11 @@ import Data.List
 
 type Board = Matrix Space
 
-data State = Winner | Tie | Undecided deriving (Show, Eq)
+type Location = (Int, Int)
 
 data Move = X | O | Blank deriving (Show, Eq)
 
-data Space = Space { location :: (Int, Int), move :: Move } deriving (Show, Eq)
+data Space = Space { location :: Location, move :: Move } deriving (Show, Eq)
 
 newBoard :: Int -> Board
 newBoard i = matrix i i $ \(i,j) -> Space { location = (i, j), move = Blank }
