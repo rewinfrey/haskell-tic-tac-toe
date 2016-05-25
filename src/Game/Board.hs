@@ -36,10 +36,10 @@ rowWinner :: Board -> Int -> Int -> Bool
 rowWinner board = colWinner (Game.Board.transpose board)
 
 colWinner :: Board -> Int -> Int -> Bool
-colWinner (Board matrix) colNum maxColNum
-  | colNum == maxColNum                 = False
-  | vectorWinner $ getCol colNum matrix = True
-  | otherwise                           = colWinner (Board matrix) (colNum + 1) maxColNum
+colWinner board colNum maxColNum
+  | colNum == maxColNum                = False
+  | vectorWinner $ getCol colNum board = True
+  | otherwise                          = colWinner board (colNum + 1) maxColNum
 
 diagWinner :: Board -> Bool
 diagWinner (Board matrix)
