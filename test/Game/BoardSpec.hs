@@ -1,9 +1,10 @@
 module Game.BoardSpec (main, spec) where
 
-import Data.Matrix
 import Data.List hiding (toList)
-import SpecHelper
+import Data.Matrix
+import Data.Monoid
 import Game.Board
+import SpecHelper
 
 main :: IO ()
 main = hspec spec
