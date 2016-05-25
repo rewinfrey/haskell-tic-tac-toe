@@ -42,10 +42,10 @@ colWinner board colNum maxColNum
   | otherwise                          = colWinner board (colNum + 1) maxColNum
 
 diagWinner :: Board -> Bool
-diagWinner (Board matrix)
-  | vectorWinner $ getDiag matrix                 = True
-  | vectorWinner $ getOppositeDiag $ Board matrix = True
-  | otherwise                                     = False
+diagWinner board
+  | vectorWinner $ getDiag board         = True
+  | vectorWinner $ getOppositeDiag board = True
+  | otherwise                            = False
 
 vectorWinner :: Vector Char -> Bool
 vectorWinner v =
