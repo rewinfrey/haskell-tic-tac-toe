@@ -33,9 +33,7 @@ tie board =
   not . any (\space -> move space == Blank) $ Data.Matrix.toList board
 
 rowWinner :: Board -> Int -> Int -> Bool
-rowWinner board colNum maxColNum =
-  colWinner (Game.Board.transpose board) colNum maxColNum
-data Space = Space { location :: (Int, Int), move :: Move } deriving (Show, Eq)
+rowWinner board = colWinner (Game.Board.transpose board)
 
 colWinner :: Board -> Int -> Int -> Bool
 colWinner (Board matrix) colNum maxColNum
