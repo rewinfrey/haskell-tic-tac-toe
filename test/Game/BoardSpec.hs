@@ -55,3 +55,10 @@ spec = do
 
     it "returns Undecided when game is ongoing" $ do
       boardState (newBoard 3) `shouldBe` Undecided
+    it "returns a new Board with all Blank moves" $
+      move <$> toList (newBoard 3) `shouldBe` Data.List.replicate 9 Blank
+
+    it "returns Board with all possible locations represented" $
+      location <$> toList (newBoard 3) `shouldBe` [ (1,1), (1,2), (1,3)
+                                                  , (2,1), (2,2), (2,3)
+                                                  , (3,1), (3,2), (3,3)]
