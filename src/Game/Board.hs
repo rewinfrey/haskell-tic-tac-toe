@@ -59,7 +59,7 @@ transpose :: Board -> Board
 transpose = Data.Matrix.transpose
 
 maxCols :: Board -> Int
-maxCols (Board matrix) = Data.Vector.length $ getRow 1 matrix
+maxCols board = Data.Vector.length $ getRow 1 board
 
 getOppositeDiag :: Board -> Data.Vector.Vector Char
 getOppositeDiag (Board matrix) =
