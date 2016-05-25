@@ -1,6 +1,7 @@
 module Game.BoardSpec (main, spec) where
 
 import Data.Matrix
+import Data.List hiding (toList)
 import SpecHelper
 import Game.Board
 
