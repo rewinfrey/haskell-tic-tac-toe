@@ -34,6 +34,18 @@ tie :: Board -> Bool
 tie board =
   not . any (\space -> move space == Blank) $ Data.Matrix.toList board
 
+update :: Board -> Location -> Move -> Board
+update board (i, j) move = Data.Matrix.fromList 3 3 updateBoard
+  where space = Data.Matrix.getElem i j board
+        updatedSpace = space { move = move }
+        updateSpace space = if location space == (i,j)
+                              then updatedSpace
+                              else space
+        updateBoard = updateSpace <$> Data.Matrix.toList board
+
+
+-- Functions below are supporting functions for the main API above
+
 rowWinner :: Board -> Int -> Int -> Bool
 rowWinner board = colWinner (Game.Board.transpose board)
 
