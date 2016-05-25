@@ -47,7 +47,7 @@ diagWinner board
   | vectorWinner $ getOppositeDiag board = True
   | otherwise                            = False
 
-vectorWinner :: Vector Char -> Bool
+vectorWinner :: Vector Space -> Bool
 vectorWinner v =
   let col = Data.Vector.toList v
       result = Data.List.nub $ Data.List.map (\boardSquare -> (boardSquare /= sentinel) && (boardSquare == (Data.List.head col))) col
