@@ -91,7 +91,11 @@ spec = do
     it "returns Undecided when game is ongoing" $
       boardState (newBoard 3) `shouldBe` Undecided
 
-  describe "update" $
-    it "updates a board for a given location with a move" $ do
+  describe "update" $ do
+    it "updates a board for a given location and move" $ do
       let board = update (newBoard 3) (1, 1) X
+      move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
+
+    it "only updates a board for which a given location's Space is Blank" $ do
+      let board = update (update (newBoard 3) (1, 1) X) (1, 1) O
       move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
