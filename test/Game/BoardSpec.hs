@@ -9,9 +9,6 @@ import SpecHelper
 main :: IO ()
 main = hspec spec
 
-newSpace :: (Int, Int) -> Move -> Space
-newSpace location move = Space { location = location, move = move }
-
 tieBoard :: Board
 tieBoard =
   matrix 3 3 $ \(i,j) -> case (i,j) of
@@ -79,7 +76,7 @@ spec = do
       tie tieBoard `shouldBe` True
 
     it "returns false if the given board is a blank board" $
-      tie (newBoard 3) `shouldBe` False
+      tie newBlankBoard `shouldBe` False
 
   describe "boardState" $ do
     it "returns Winner when winner is present" $
@@ -89,13 +86,13 @@ spec = do
       boardState tieBoard `shouldBe` Tie
 
     it "returns Undecided when game is ongoing" $
-      boardState (newBoard 3) `shouldBe` Undecided
+      boardState newBlankBoard `shouldBe` Undecided
 
   describe "update" $ do
     it "updates a board for a given location and move" $ do
-      let board = update (newBoard 3) (1, 1) X
+      let board = update newBlankBoard (1, 1) X
       move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
 
     it "only updates a board for which a given location's Space is Blank" $ do
-      let board = update (update (newBoard 3) (1, 1) X) (1, 1) O
+      let board = update (update newBlankBoard (1, 1) X) (1, 1) O
       move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
