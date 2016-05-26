@@ -15,7 +15,8 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Game.Context
+  exposed-modules:     Game.AIPlayer
+                     , Game.Context
                      , Game.Player
                      , Game.Board
                      , Console.Driver
