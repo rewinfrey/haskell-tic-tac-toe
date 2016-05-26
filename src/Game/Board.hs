@@ -1,7 +1,7 @@
 module Game.Board where
 
 import Data.Matrix
-import Data.Vector hiding (any)
+import Data.Vector hiding (any, filter)
 import Data.List
 
 type Board = Matrix Space
@@ -41,6 +41,9 @@ update board (i, j) move = Data.Matrix.fromList 3 3 updateBoard
         updateBoard = updateSpace <$> Data.Matrix.toList board
         updateSpace space = if open space then updatedSpace else space
           where open space@ Space { location = location, move = move } = location == (i,j) && move == Blank
+
+availableSpaces :: Board -> [Space]
+availableSpaces board = filter (\space -> move space == Blank) $ Data.Matrix.toList board
 
 -- Functions below are supporting functions for the main API above
 

@@ -96,3 +96,14 @@ spec = do
     it "only updates a board for which a given location's Space is Blank" $ do
       let board = update (update newBlankBoard (1, 1) X) (1, 1) O
       move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
+
+  describe "availableSpaces" $ do
+    it "returns all Spaces when given a new Board" $
+      location <$> availableSpaces newBlankBoard `shouldBe` [ (1,1), (1,2), (1,3)
+                                                            , (2,1), (2,2), (2,3)
+                                                            , (3,1), (3,2), (3,3) ]
+
+    it "returns only Blank Spaces when given an undecided Board" $
+      location <$> availableSpaces (update newBlankBoard (1,1) X) `shouldBe` [        (1,2), (1,3)
+                                                                             , (2,1), (2,2), (2,3)
+                                                                             , (3,1), (3,2), (3,3) ]
