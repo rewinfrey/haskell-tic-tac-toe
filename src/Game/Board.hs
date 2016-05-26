@@ -38,11 +38,9 @@ update :: Board -> Location -> Move -> Board
 update board (i, j) move = Data.Matrix.fromList 3 3 updateBoard
   where space = Data.Matrix.getElem i j board
         updatedSpace = space { move = move }
-        updateSpace space = if location space == (i,j)
-                              then updatedSpace
-                              else space
         updateBoard = updateSpace <$> Data.Matrix.toList board
-
+        updateSpace space = if open space then updatedSpace else space
+          where open space@ Space { location = location, move = move } = location == (i,j) && move == Blank
 
 -- Functions below are supporting functions for the main API above
 
