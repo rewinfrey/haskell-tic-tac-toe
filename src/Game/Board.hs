@@ -1,7 +1,7 @@
 module Game.Board where
 
 import Data.Matrix
-import Data.Vector hiding (any, filter)
+import Data.Vector hiding (any, filter, update)
 import Data.List
 
 type Board = Matrix Space
