@@ -52,7 +52,7 @@ rowWinner board = colWinner (Game.Board.transpose board)
 
 colWinner :: Board -> Int -> Int -> Bool
 colWinner board colNum maxColNum
-  | colNum == maxColNum                = False
+  | colNum > maxColNum                = False
   | vectorWinner $ getCol colNum board = True
   | otherwise                          = colWinner board (colNum + 1) maxColNum
 

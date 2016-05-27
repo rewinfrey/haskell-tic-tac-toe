@@ -43,6 +43,14 @@ oppositeDiagonalWin =
                           (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) X
                           (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X;     (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) X;     (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
+
+bottomRowWinner :: Board
+bottomRowWinner =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
+                          (3,1) -> newSpace (3,1) X;     (3,2) -> newSpace (3,2) X; (3,3)     -> newSpace (3,3) X
+
 spec :: Spec
 spec = do
 
@@ -67,6 +75,9 @@ spec = do
 
     it "returns true if the given board contains an opposite diagonal win" $
       winner oppositeDiagonalWin `shouldBe` True
+
+    it "returns true if the given board contains a winner along the bottom edge" $
+      winner bottomRowWinner `shouldBe` True
 
     it "returns false if the given board does not contain a win" $
       winner tieBoard `shouldBe` False
