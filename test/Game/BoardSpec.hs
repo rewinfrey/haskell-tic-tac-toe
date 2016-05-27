@@ -23,6 +23,20 @@ columnWin =
                           (2,1) -> newSpace (2,1) X; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) X; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 
+edgeColumnWin :: Board
+edgeColumnWin =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) X
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) X
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) X
+
+middleColumnWin :: Board
+middleColumnWin =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) X; (1,3) -> newSpace (1,3) Blank
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X; (2,3) -> newSpace (2,3) Blank
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) X; (3,3) -> newSpace (3,3) Blank
+
 rowWin :: Board
 rowWin =
   matrix 3 3 $ \(i,j) -> case (i,j) of
@@ -44,6 +58,12 @@ oppositeDiagonalWin =
                           (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X;     (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) X;     (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 
+middleRowWinner :: Board
+middleRowWinner =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) X; (1,3) -> newSpace (1,3) Blank
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X; (2,3) -> newSpace (2,3) Blank
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) X; (3,3) -> newSpace (3,3) Blank
 bottomRowWinner :: Board
 bottomRowWinner =
   matrix 3 3 $ \(i,j) -> case (i,j) of
@@ -67,17 +87,26 @@ spec = do
     it "returns true if the given board contains a column win" $
       winner columnWin `shouldBe` True
 
+    it "returns true if the given board contains an edge column win" $
+      winner edgeColumnWin `shouldBe` True
+
+    it "returns true if the given board contains a middle column win" $
+      winner middleColumnWin `shouldBe` True
+
     it "returns true if the given board contains a row win" $
       winner rowWin `shouldBe` True
+
+    it "returns true if the given board contains a middle row win" $
+      winner middleRowWinner `shouldBe` True
+
+    it "returns true if the given board contains a winner along the bottom edge" $
+      winner bottomRowWinner `shouldBe` True
 
     it "returns true if the given board contains a diagonal win" $
       winner diagonalWin `shouldBe` True
 
     it "returns true if the given board contains an opposite diagonal win" $
       winner oppositeDiagonalWin `shouldBe` True
-
-    it "returns true if the given board contains a winner along the bottom edge" $
-      winner bottomRowWinner `shouldBe` True
 
     it "returns false if the given board does not contain a win" $
       winner tieBoard `shouldBe` False
