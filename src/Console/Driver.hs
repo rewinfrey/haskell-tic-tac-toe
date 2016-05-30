@@ -3,6 +3,10 @@ module Console.Driver where
 import System.Process
 import Game.Context
 import Game.Player
+import Game.Board ( Board, Move(..), Space(..) )
+import Data.Foldable (maximumBy)
+import Data.List (intercalate)
+import Data.Matrix (toLists)
 
 x = "X"
 o = "O"
@@ -84,3 +88,18 @@ inputFromChoice choice opt1 opt2 =
   case choice of
     "1" -> opt1
     "2" -> opt2
+
+displayBoard :: Board -> IO ()
+displayBoard board = do
+  let stringRows = rowToString <$> Data.Matrix.toLists board
+  let maxLength = length $ Data.Foldable.maximumBy (\row1 row2 -> compare (length row1) (length row2)) stringRows
+  let margin = "\n\n"
+  let divider = "\n" ++ (concat $ replicate maxLength "-") ++ "\n"
+  putStrLn $ margin ++ (Data.List.intercalate divider stringRows) ++ margin
+
+rowToString :: [Space] -> String
+rowToString spaces = Data.List.intercalate " | " $ spaceToString <$> spaces
+  where spaceToString Space { location = location, move = move } = case move of
+                                                                     Blank -> show location
+                                                                     X -> "  X  "
+                                                                     O -> "  O  "
