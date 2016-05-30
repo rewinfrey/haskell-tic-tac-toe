@@ -34,4 +34,5 @@ oppositeMinMaxPlayer :: MinMaxPlayer -> MinMaxPlayer
 oppositeMinMaxPlayer minmaxPlayer = if minmaxPlayer == Max then Min else Max
 
 score :: MinMaxPlayer -> Ply -> Score
-score minmaxPlayer ply = if minmaxPlayer == Max then 1000 - ply else (-1000) + ply
+score Max ply = 1000 - ply
+score Min ply = (-1000) + ply
