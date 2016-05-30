@@ -28,7 +28,8 @@ findBestMove minmaxPlayer scores = if minmaxPlayer == Max then maximumBy scoreCo
                                                                     else compare (abs score) (abs score')
 
 oppositeMove :: Move -> Move
-oppositeMove move = if move == X then O else X
+oppositeMove X = O
+oppositeMove O = X
 
 oppositeMinMaxPlayer :: MinMaxPlayer -> MinMaxPlayer
 oppositeMinMaxPlayer Max = Min
