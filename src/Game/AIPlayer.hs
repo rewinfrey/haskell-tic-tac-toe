@@ -31,7 +31,8 @@ oppositeMove :: Move -> Move
 oppositeMove move = if move == X then O else X
 
 oppositeMinMaxPlayer :: MinMaxPlayer -> MinMaxPlayer
-oppositeMinMaxPlayer minmaxPlayer = if minmaxPlayer == Max then Min else Max
+oppositeMinMaxPlayer Max = Min
+oppositeMinMaxPlayer Min = Max
 
 score :: MinMaxPlayer -> Ply -> Score
 score Max ply = 1000 - ply
