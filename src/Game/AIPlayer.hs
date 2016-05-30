@@ -22,10 +22,11 @@ evaluateBoard board minmaxPlayer move ply space@ Space { location = location } =
       Tie -> (space { move = move }, 0, minmaxPlayer)
 
 findBestMove :: MinMaxPlayer -> [(Space, Score, MinMaxPlayer)] -> (Space, Score, MinMaxPlayer)
-findBestMove minmaxPlayer scores = if minmaxPlayer == Max then maximumBy scoreComparison scores else minimumBy scoreComparison scores
-  where scoreComparison (_, score, minmax1) (_, score', minmax2) = if minmax1 /= minmax2
-                                                                    then compare score score'
-                                                                    else compare (abs score) (abs score')
+findBestMove minmaxPlayer scores =
+  case minmaxPlayer of
+    Max -> maximumBy scoreComparison scores
+    Min -> minimumBy scoreComparison scores
+  where scoreComparison (_, score, _) (_, score', _) = compare (abs score) (abs score')
 
 oppositeMove :: Move -> Move
 oppositeMove X = O
