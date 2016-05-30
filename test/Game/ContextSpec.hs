@@ -20,3 +20,4 @@ spec =
          player1 gameContext `shouldBe` newPlayer1
          player2 gameContext `shouldBe` newPlayer2
          board gameContext `shouldBe` newBoard boardSize
+         nextTurn gameContext `shouldBe` newPlayer1
