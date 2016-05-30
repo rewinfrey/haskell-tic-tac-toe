@@ -62,10 +62,10 @@ spec =
       minimax winAndOpponentWinOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = X }, 1000, Max)
 
     it "blocks an opponent from winning" $
-      minimax blockOpponentWinOpportunity Max X 0 `shouldBe` (Space { location = (3,3), move = O }, -999, Min)
+      minimax blockOpponentWinOpportunity Max X 0 `shouldBe` (Space { location = (3,3), move = X }, 998, Max)
 
     it "blocks an opponent from forking" $
-      minimax blockOpponentForkOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = O }, -995, Min)
+      minimax blockOpponentForkOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = X }, 994, Max)
 
     it "blocks an opponent from forking two" $
       minimax blockOpponentForkOpportunity2 Max X 0 `shouldBe` (Space { location = (3,3), move = O }, -997, Min)
