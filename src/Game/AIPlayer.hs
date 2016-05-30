@@ -15,11 +15,11 @@ minimax board minmaxPlayer move ply =
 
 evaluateBoard :: Board -> MinMaxPlayer -> Move -> Ply -> Space -> (Space, Score, MinMaxPlayer)
 evaluateBoard board minmaxPlayer move ply space@ Space { location = location } =
-  let updatedBoard = update board location move in
-    case boardState updatedBoard of
-      Undecided -> minimax updatedBoard (oppositeMinMaxPlayer minmaxPlayer) (oppositeMove move) (ply + 1)
-      Winner -> (space { move = move }, score minmaxPlayer ply, minmaxPlayer)
-      Tie -> (space { move = move }, 0, minmaxPlayer)
+  case boardState updatedBoard of
+    Undecided -> minimax updatedBoard (oppositeMinMaxPlayer minmaxPlayer) (oppositeMove move) (ply + 1)
+    Winner    -> (space { move = move }, score minmaxPlayer ply, minmaxPlayer)
+    Tie       -> (space { move = move }, 0, minmaxPlayer)
+  where updatedBoard = update board location move
 
 findBestMove :: MinMaxPlayer -> [(Space, Score, MinMaxPlayer)] -> (Space, Score, MinMaxPlayer)
 findBestMove minmaxPlayer scores =
