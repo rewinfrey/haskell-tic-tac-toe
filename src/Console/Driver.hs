@@ -39,10 +39,8 @@ start = do
   putStrLn "\nFinished!"
 
 opposite :: String -> String
-opposite token =
-  case token of
-    x -> o
-    o -> x
+opposite x = o
+opposite o = x
 
 greeting :: IO ()
 greeting = putStrLn "\nWelcome to Haskell Tic-Tac-Toe!\n"
