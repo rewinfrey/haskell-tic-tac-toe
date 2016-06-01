@@ -1,7 +1,7 @@
 module Game.AIPlayer where
 
 import Data.Foldable (minimumBy, maximumBy)
-import Game.Board( Board, Space(..), Move(X), Move(O), Space, Location, tempSpace, boardState, State( Winner) , State( Tie ), State( Undecided ), update, availableSpaces )
+import Game.Board( Board, Space(..), Move(X), Move(O), Space, Location, boardState, State( Winner) , State( Tie ), State( Undecided ), update, availableSpaces )
 
 -- Ply refers to the depth of the game tree as it is evaluated.
 type Ply = Int
