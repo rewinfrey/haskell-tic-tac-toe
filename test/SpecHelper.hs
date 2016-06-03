@@ -14,8 +14,8 @@ import Game.Context
 import Game.Player
 import Game.Board
 
-newSpace :: Location -> Move -> Space
-newSpace location move = Space { location = location, move = move }
+newSpace :: Location -> Token -> Space
+newSpace location spaceToken = Space { location = location, spaceToken = spaceToken }
 
 newBlankBoard :: Board
 newBlankBoard = newBoard 3
