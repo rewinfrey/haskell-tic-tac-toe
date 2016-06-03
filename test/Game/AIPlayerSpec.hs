@@ -7,65 +7,84 @@ import SpecHelper
 main :: IO ()
 main = hspec spec
 
-columnWinOpportunity :: Board
-columnWinOpportunity =
+columnWin :: Board
+columnWin =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) X; (1,2)     -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X; (2,2)     -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 
-rowWinOpportunity :: Board
-rowWinOpportunity =
+rowWin :: Board
+rowWin =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) X; (1,2)     -> newSpace (1,2) X; (1,3)     -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X; (2,2)     -> newSpace (2,2) O; (2,3)     -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) O; (3,2)     -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 
-winAndOpponentWinOpportunity :: Board
-winAndOpponentWinOpportunity =
+winAndOpponentWin :: Board
+winAndOpponentWin =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) X; (1,2)     -> newSpace (1,2) X; (1,3)     -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X; (2,2)     -> newSpace (2,2) O; (2,3)     -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) O; (3,2)     -> newSpace (3,2) O; (3,3)     -> newSpace (3,3) Blank
 
-blockOpponentWinOpportunity :: Board
-blockOpponentWinOpportunity =
+blockOpponentWin :: Board
+blockOpponentWin =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) X; (1,2)     -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X; (2,2)     -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) O; (3,2)     -> newSpace (3,2) O; (3,3)     -> newSpace (3,3) Blank
 
-blockOpponentForkOpportunity :: Board
-blockOpponentForkOpportunity =
+blockOpponentWin2 :: Board
+blockOpponentWin2 =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) O
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X;     (2,3) -> newSpace (2,3) X
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
+
+blockOpponentFork :: Board
+blockOpponentFork =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) O; (1,2)     -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) Blank
                           (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 
-blockOpponentForkOpportunity2 :: Board
-blockOpponentForkOpportunity2 =
+blockOpponentFork2 :: Board
+blockOpponentFork2 =
   matrix 3 3 $ \(i,j) -> case (i,j) of
                           (1,1) -> newSpace (1,1) O;     (1,2) -> newSpace (1,2) X;     (1,3) -> newSpace (1,3) Blank
                           (2,1) -> newSpace (2,1) X;     (2,2) -> newSpace (2,2) Blank; (2,3) -> newSpace (2,3) O
                           (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) O;     (3,3) -> newSpace (3,3) Blank
 
+blockFutureWin :: Board
+blockFutureWin =
+  matrix 3 3 $ \(i,j) -> case (i,j) of
+                          (1,1) -> newSpace (1,1) Blank; (1,2) -> newSpace (1,2) Blank; (1,3) -> newSpace (1,3) Blank
+                          (2,1) -> newSpace (2,1) Blank; (2,2) -> newSpace (2,2) X;     (2,3) -> newSpace (2,3) Blank
+                          (3,1) -> newSpace (3,1) Blank; (3,2) -> newSpace (3,2) Blank; (3,3) -> newSpace (3,3) Blank
 spec :: Spec
 spec =
   describe "minimax" $ do
     it "finds immediate win simple case" $
-      minimax columnWinOpportunity Max X 0 `shouldBe` (Space { location = (3,1), move = X }, 1000, Max)
+      minimax columnWin X `shouldBe` (3,1)
 
     it "finds immediate win more complex case" $
-      minimax rowWinOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = X }, 1000, Max)
+      minimax rowWin X `shouldBe` (1,3)
 
     it "prioritizes wins over blocking opponent's win" $
-      minimax winAndOpponentWinOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = X }, 1000, Max)
+      minimax winAndOpponentWin X `shouldBe` (1,3)
 
     it "blocks an opponent from winning" $
-      minimax blockOpponentWinOpportunity Max X 0 `shouldBe` (Space { location = (3,3), move = X }, 998, Max)
+      minimax blockOpponentWin X `shouldBe` (3,3)
 
     it "blocks an opponent from forking" $
-      minimax blockOpponentForkOpportunity Max X 0 `shouldBe` (Space { location = (1,3), move = X }, 994, Max)
+      minimax blockOpponentFork X `shouldBe` (2,2)
 
     it "blocks an opponent from forking two" $
-      minimax blockOpponentForkOpportunity2 Max X 0 `shouldBe` (Space { location = (3,3), move = O }, -997, Min)
+      minimax blockOpponentFork2 X `shouldBe` (3,3)
+
+    it "blocks an opponent from winning two" $
+      minimax blockOpponentWin2 O `shouldBe` (2,1)
+
+    it "chooses corner when opponent's first move is in the center" $
+      minimax blockFutureWin O `shouldBe` (3,3)
