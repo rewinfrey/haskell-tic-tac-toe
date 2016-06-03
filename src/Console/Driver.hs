@@ -12,7 +12,7 @@ import Data.Matrix (toLists)
 x = "X"
 o = "O"
 
-defaultBoardSize = 4
+defaultBoardSize = 3
 
 human = "Human"
 computer = "Computer"
