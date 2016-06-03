@@ -34,7 +34,7 @@ tie board =
   not . any (\space -> spaceToken space == Blank) $ Data.Matrix.toList board
 
 update :: Board -> Location -> Token -> Board
-update board (i, j) token = Data.Matrix.fromList 3 3 updateBoard
+update board (i, j) token = Data.Matrix.fromList (Data.Matrix.nrows board) (Data.Matrix.ncols board) updateBoard
   where space = Data.Matrix.getElem i j board
         updatedSpace = space { spaceToken = token }
         updateBoard = updateSpace <$> Data.Matrix.toList board
