@@ -11,8 +11,8 @@ spec =
     it "returns a new Game Context" $
       do let newPlayer1Type = Human
          let newPlayer2Type = Human
-         let newPlayer1Token = "x"
-         let newPlayer2Token = "o"
+         let newPlayer1Token = X
+         let newPlayer2Token = O
          let boardSize = 3
          let newPlayer1 = Player { token = newPlayer1Token, playerType = newPlayer1Type }
          let newPlayer2 = Player { token = newPlayer2Token, playerType = newPlayer2Type }
@@ -20,4 +20,4 @@ spec =
          player1 gameContext `shouldBe` newPlayer1
          player2 gameContext `shouldBe` newPlayer2
          board gameContext `shouldBe` newBoard boardSize
-         nextTurn gameContext `shouldBe` newPlayer1
+         currentPlayer gameContext `shouldBe` newPlayer1
