@@ -7,12 +7,19 @@ main = hspec spec
 
 spec :: Spec
 spec = do
+  describe "newToken" $ do
+    it "returns O when given a string O" $
+      newToken "O" `shouldBe` O
+
+    it "returns X when given a string X" $
+      newToken "X" `shouldBe` X
+
   describe "newPlayer" $
     it "returns a new Player" $
       do let newPlayerType  = "Human"
          let newPlayerToken = "x"
          let newPlayerTest  = newPlayer newPlayerToken newPlayerType
-         token newPlayerTest `shouldBe` newPlayerToken
+         token newPlayerTest `shouldBe` X
          playerType newPlayerTest `shouldBe` Human
 
   describe "newPlayerType" $
