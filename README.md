@@ -22,7 +22,7 @@ $ stack exec tic-tac-toe
 $ stack build --test
 ```
 
-### License
+### License (MIT)
 
 Copyright (c) 2016 Rick Winfrey
 
