@@ -3,19 +3,18 @@ module Game.Board where
 import Data.Matrix
 import Data.Vector hiding (any, filter, update)
 import Data.List
+import Game.Player ( Token(..) )
 
 type Board = Matrix Space
 
 type Location = (Int, Int)
 
-data Move = X | O | Blank deriving (Show, Eq)
-
-data Space = Space { location :: Location, move :: Move } deriving (Show, Eq)
+data Space = Space { location :: Location, spaceToken :: Token } deriving (Show, Eq)
 
 data State = Winner | Tie | Undecided deriving (Show, Eq)
 
 newBoard :: Int -> Board
-newBoard i = matrix i i $ \(i,j) -> Space { location = (i, j), move = Blank }
+newBoard i = matrix i i $ \(i,j) -> Space { location = (i, j), spaceToken = Blank }
 
 boardState :: Board -> State
 boardState board
@@ -32,18 +31,18 @@ winner board
 
 tie :: Board -> Bool
 tie board =
-  not . any (\space -> move space == Blank) $ Data.Matrix.toList board
+  not . any (\space -> spaceToken space == Blank) $ Data.Matrix.toList board
 
-update :: Board -> Location -> Move -> Board
-update board (i, j) move = Data.Matrix.fromList 3 3 updateBoard
+update :: Board -> Location -> Token -> Board
+update board (i, j) token = Data.Matrix.fromList 3 3 updateBoard
   where space = Data.Matrix.getElem i j board
-        updatedSpace = space { move = move }
+        updatedSpace = space { spaceToken = token }
         updateBoard = updateSpace <$> Data.Matrix.toList board
         updateSpace space = if open space then updatedSpace else space
-          where open space@ Space { location = location, move = move } = location == (i,j) && move == Blank
+          where open space@ Space { location = location, spaceToken = token } = location == (i,j) && token == Blank
 
 availableSpaces :: Board -> [Space]
-availableSpaces board = filter (\space -> move space == Blank) $ Data.Matrix.toList board
+availableSpaces board = filter (\space -> spaceToken space == Blank) $ Data.Matrix.toList board
 
 -- Functions below are supporting functions for the main API above
 
@@ -66,7 +65,7 @@ vectorWinner :: Vector Space -> Bool
 vectorWinner v =
   Data.List.all match column
   where
-    match space = move space /= Blank && move space == move firstSpace
+    match space = spaceToken space /= Blank && spaceToken space == spaceToken firstSpace
     column = Data.Vector.toList v
     firstSpace = Data.List.head column
 

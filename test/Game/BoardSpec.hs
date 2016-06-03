@@ -75,8 +75,8 @@ spec :: Spec
 spec = do
 
   describe "newBoard" $ do
-    it "returns a new Board with all Blank moves" $
-      move <$> toList (newBoard 3) `shouldBe` Data.List.replicate 9 Blank
+    it "returns a new Board with all Blank tokens" $
+      spaceToken <$> toList (newBoard 3) `shouldBe` Data.List.replicate 9 Blank
 
     it "returns Board with all possible locations represented" $
       location <$> toList (newBoard 3) `shouldBe` [ (1,1), (1,2), (1,3)
@@ -129,13 +129,13 @@ spec = do
       boardState newBlankBoard `shouldBe` Undecided
 
   describe "update" $ do
-    it "updates a board for a given location and move" $ do
+    it "updates a board for a given location and token" $ do
       let board = update newBlankBoard (1, 1) X
-      move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
+      spaceToken <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
 
     it "only updates a board for which a given location's Space is Blank" $ do
       let board = update (update newBlankBoard (1, 1) X) (1, 1) O
-      move <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
+      spaceToken <$> Data.Matrix.toList board `shouldBe` [X] <> Data.List.replicate 8 Blank
 
   describe "availableSpaces" $ do
     it "returns all Spaces when given a new Board" $
